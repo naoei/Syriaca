@@ -15,4 +15,10 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="Addresses.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
 </Project>
