@@ -5,4 +5,14 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MemorySharp" Version="1.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="DiscordRPC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\DLLs\DiscordRPC.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
