@@ -1,0 +1,103 @@
+﻿[Current Scene]
+offsets: 0x1DC
+valueType: CurrentScene
+
+[Level ID]
+offsets: 0x164 | 0x22C | 0x114 | 0xF8
+valueType: int
+
+[Level Title Length]
+offsets: 0x164 | 0x22C | 0x114 | 0x10C
+valueType: int
+
+[Level Title]
+offsets: 0x164 | 0x22C | 0x114 | 0xFC
+valueType: string
+
+[Level Author]
+offsets: 0x164 | 0x22C | 0x114 | 0x144
+valueType: string
+
+[Level Stars]
+offsets: 0x164 | 0x22C | 0x114 | 0x2AC
+valueType: int
+
+[Is Demon]
+offsets: 0x164 | 0x22C | 0x114 | 0x29C
+valueType: bool
+
+[Is Auto]
+offsets: 0x164 | 0x22C | 0x114 | 0x2B0
+valueType: bool
+
+[Level Difficulty]
+offsets: 0x164 | 0x22C | 0x114 | 0x1E4
+valueType: int
+
+[Demon Difficulty]
+offsets: 0x164 | 0x22C | 0x114 | 0x2A0
+valueType: int
+
+[Attempts]
+offsets: 0x164 | 0x22C | 0x114 | 0x218
+valueType: int
+
+[Jumps]
+offsets: 0x164 | 0x22C | 0x114 | 0x224
+valueType: int
+
+[Completion Progress]
+offsets: 0x164 | 0x22C | 0x114 | 0x248
+valueType: int
+
+[Practice Completion Progress]
+offsets: 0x164 | 0x22C | 0x114 | 0x26C
+valueType: int
+
+[Max Coins]
+offsets: 0x164 | 0x22C | 0x114 | 0x2B4
+valueType: int
+
+[Coin 0 Grabbed]
+offsets: 0x164 | 0x22C | 0x114 | 0x2E8
+valueType: int
+
+[Coin 1 Grabbed]
+offsets: 0x164 | 0x22C | 0x114 | 0x2F4
+valueType: int
+
+[Coin 2 Grabbed]
+offsets: 0x164 | 0x22C | 0x114 | 0x300
+valueType: int
+
+[Level Type]
+offsets: 0x164 | 0x22C | 0x114 | 0x364
+valueType: LevelType
+
+[Attempt]
+offsets: 0x164 | 0x22C | 0x114 | 0x4A8
+valueType: int
+
+[Level Length]
+offsets: 0x164 | 0x3B4
+valueType: float
+
+[Player X]
+offsets: 0x164 | 0x224 | 0x34
+valueType: float
+
+[Player Dead]
+offsets: 0x164 | 0x39c
+valueType: bool
+
+[Practice Mode]
+offsets: 0x164 | 0x495
+valueType: bool
+
+[Account ID]
+offsets: 0x120
+valueType: int
+
+[User ID]
+offsets: 0x1BC
+valueType: int
