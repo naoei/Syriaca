@@ -19,7 +19,7 @@ namespace Syriaca.Client.Memory
             reader = new GdReader(process);
         }
 
-        public Action<ValueChangedEvent<GameScene>> SceneChanged;
+        public event Action<ValueChangedEvent<SceneInformation>> SceneChanged;
 
         public (int user, int account) GetPlayerId()
             => reader.ReadPlayerIds();
