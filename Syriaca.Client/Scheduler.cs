@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection;
+using Syriaca.Client.Utils;
 
 namespace Syriaca.Client
 {
@@ -14,10 +14,10 @@ namespace Syriaca.Client
 
         public readonly Stopwatch Stopwatch = new();
 
-        public Scheduler(int delay, MemberInfo type)
+        public Scheduler(int delay)
         {
             Delay = delay;
-            Name = type.Name;
+            Name = DebugUtils.GetCallingClass();
         }
 
         public void Pulse()

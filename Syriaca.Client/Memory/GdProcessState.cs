@@ -11,7 +11,7 @@ namespace Syriaca.Client.Memory
         public PlayerState PlayerState { get; }
 
         private readonly GdReader reader;
-        public Scheduler Scheduler { get; } = new(50, typeof(GdProcessState));
+        public Scheduler Scheduler { get; } = new(50);
 
         public event Action<ValueChangedEvent<SceneInformation>> SceneChanged;
 
@@ -85,7 +85,6 @@ namespace Syriaca.Client.Memory
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
                     // don't do anything
                 }
             }
