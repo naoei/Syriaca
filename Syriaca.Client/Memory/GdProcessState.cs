@@ -5,13 +5,13 @@ using Syriaca.Client.Information;
 
 namespace Syriaca.Client.Memory
 {
-    public class GdProcessState
+    public class GdProcessState : IHasScheduler
     {
         public SceneInformation Scene { get; private set; }
         public PlayerState PlayerState { get; }
 
         private readonly GdReader reader;
-        private readonly Scheduler scheduler = new(50, typeof(GdProcessState));
+        public Scheduler Scheduler { get; } = new(50, typeof(GdProcessState));
 
         public event Action<ValueChangedEvent<SceneInformation>> SceneChanged;
 
@@ -25,14 +25,14 @@ namespace Syriaca.Client.Memory
         }
 
         public void StartScheduler()
-            => scheduler.Pulse();
+            => Scheduler.Pulse();
 
         public (int user, int account) GetPlayerId()
             => reader.ReadPlayerIds();
         
         private void scheduleActions()
         {
-            scheduler.Add(getCurrentScene);
+            Scheduler.Add(getCurrentScene);
         }
 
         private void getCurrentScene()
