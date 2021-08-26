@@ -5,6 +5,8 @@ namespace Syriaca.Client.Utils
 {
     public class Logger
     {
+        public static LogLevel Level = LogLevel.Debug;
+
         public static void Debug(string message)
         {
             if (DebugUtils.IsDebugBuild)
@@ -23,6 +25,9 @@ namespace Syriaca.Client.Utils
 
         private static void log(string message, LogLevel level = LogLevel.Log, string color = "#00AAFF")
         {
+            if (!(Level <= level))
+                return;
+
             var currentTime = DateTime.Now.ToShortTimeString();
             var name = DebugUtils.GetCallingClass(1);
 
@@ -33,6 +38,9 @@ namespace Syriaca.Client.Utils
         private static void logBackground(string message, LogLevel level = LogLevel.Log,
                                           string color = "#00AAFF", string textColor = "white")
         {
+            if (!(Level <= level))
+                return;
+
             var currentTime = DateTime.Now.ToShortTimeString();
             var name = DebugUtils.GetCallingClass(1);
 

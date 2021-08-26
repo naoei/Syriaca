@@ -13,28 +13,27 @@ namespace Syriaca.Client
     {
         private static Process gdProcess;
         private static GdProcessState processState;
-        
+
         public static void Main(string[] args)
         {
             GetGdProcess(args);
 
+            if (gdProcess == null)
+            {
+                Logger.Error("Failed to fetch GeometryDash process");
+
+                return;
+            }
+
             processState = new GdProcessState(gdProcess);
-            
+
             processState.Scheduler.Pulse();
             processState.SceneChanged += OnSceneChanged;
-            
-            Logger.Debug("w");
-            Logger.Info("w");
-            Logger.Log("w");
-            Logger.Warn("w");
-            Logger.Error("w");
             CreateLoop(processState.Scheduler);
         }
 
         private static void OnSceneChanged(ValueChangedEvent<SceneInformation> scene)
         {
-            Console.WriteLine("Old: " + scene.OldValue.Scene);
-            Console.WriteLine("New: " + scene.NewValue.Scene);
         }
 
         private static void CreateLoop(Scheduler scheduler)
@@ -48,7 +47,7 @@ namespace Syriaca.Client
                 scheduler.Pulse();
             }
         }
-        
+
         private static void GetGdProcess(IReadOnlyCollection<string> args)
         {
             if (args.Count > 0 && args.Any(a => a == "--opengd" || a == "-o"))

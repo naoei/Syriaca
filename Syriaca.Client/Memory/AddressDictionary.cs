@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Syriaca.Client.Utils;
 
 namespace Syriaca.Client.Memory
 {
@@ -37,6 +38,7 @@ namespace Syriaca.Client.Memory
 
                 if (!line.Any())
                 {
+                    Logger.Debug($"Added address entry: {currentEntry}");
                     result.Add(currentEntry.Name, currentEntry);
                     currentEntry = null;
 
@@ -68,9 +70,12 @@ namespace Syriaca.Client.Memory
                         break;
                 }
             }
-            
+
             if (currentEntry != null)
+            {
+                Logger.Debug($"Added address entry: {currentEntry}");
                 result.Add(currentEntry.Name, currentEntry);
+            }
 
             return result;
         }

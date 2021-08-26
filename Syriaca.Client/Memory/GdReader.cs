@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using Syriaca.Client.Information;
+using Syriaca.Client.Utils;
 
 namespace Syriaca.Client.Memory
 {
@@ -18,6 +19,9 @@ namespace Syriaca.Client.Memory
         {
             gameManager = Memory.Read<IntPtr>((IntPtr) GAME_MANAGER_ADDRESS);
             accountManager = Memory.Read<IntPtr>((IntPtr) ACCOUNT_MANAGER_ADDRESS);
+            
+            Logger.Info($"GameManager address: 0x{gameManager:X}");
+            Logger.Info($"AccountManager address: 0x{accountManager:X}");
         }
 
         protected override AddressDictionary CreateAddressDictionary() => AddressDictionary.Parse(File.ReadAllText("Addresses.txt"));

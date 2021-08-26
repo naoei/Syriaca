@@ -30,6 +30,7 @@ namespace Syriaca.Client
 
         public void Add(Action action)
         {
+            Logger.Debug($"Enqueueing action: {action.Method.Name} for {Name}");
             runQueue.Enqueue(action);
         }
     }

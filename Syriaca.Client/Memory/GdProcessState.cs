@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Syriaca.Client.Information;
+using Syriaca.Client.Utils;
 
 namespace Syriaca.Client.Memory
 {
@@ -45,6 +46,7 @@ namespace Syriaca.Client.Memory
             var newScene = new SceneInformation(currentScene, getSceneData());
             
             SceneChanged?.Invoke(new ValueChangedEvent<SceneInformation>(Scene, newScene));
+            Logger.Log($"Scene changed from {Scene.Scene} -> {newScene.Scene} with {newScene.SceneData.Count} data attributes");
             Scene = newScene;
         }
 
@@ -61,21 +63,25 @@ namespace Syriaca.Client.Memory
                         case "string":
                             var stringValue = reader.ReadString(address.Value);
                             dict.Add(address.Key, stringValue);
+                            Logger.Debug($"{address.Key} - {stringValue}");
                             break;
                         
                         case "int":
                             var intValue = reader.Read<int>(address.Value);
                             dict.Add(address.Key, intValue);
+                            Logger.Debug($"{address.Key} - {intValue}");
                             break;
                         
                         case "float":
                             var floatValue = reader.Read<float>(address.Value);
                             dict.Add(address.Key, floatValue);
+                            Logger.Debug($"{address.Key} - {floatValue}");
                             break;
                         
                         case "bool":
                             var boolValue = reader.Read<bool>(address.Value);
                             dict.Add(address.Key, boolValue);
+                            Logger.Debug($"{address.Key} - {boolValue}");
                             break;
                         
                         default:
@@ -83,7 +89,7 @@ namespace Syriaca.Client.Memory
                             throw new Exception();
                     }
                 }
-                catch (Exception e)
+                catch
                 {
                     // don't do anything
                 }
