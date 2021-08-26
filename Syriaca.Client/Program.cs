@@ -3,37 +3,39 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using Syriaca.Client.Information;
 using Syriaca.Client.Memory;
+using Syriaca.Client.Rpc;
 using Syriaca.Client.Utils;
 
 namespace Syriaca.Client
 {
     public static class Program
     {
-        private static Process gdProcess;
+        private static GdReader reader;
         private static GdProcessState processState;
+        private static RpcThread rpcThread;
 
         public static void Main(string[] args)
         {
-            GetGdProcess(args);
+            var proc = GetGdProcess(args);
 
-            if (gdProcess == null)
+            if (proc == null)
             {
                 Logger.Error("Failed to fetch GeometryDash process");
 
                 return;
             }
 
-            processState = new GdProcessState(gdProcess);
+            reader = new GdReader(proc);
 
-            processState.Scheduler.Pulse();
-            processState.SceneChanged += OnSceneChanged;
-            CreateLoop(processState.Scheduler);
-        }
+            processState = new GdProcessState(reader);
+            rpcThread = new RpcThread(processState, reader);
 
-        private static void OnSceneChanged(ValueChangedEvent<SceneInformation> scene)
-        {
+            processState.StartScheduler();
+            rpcThread.StartScheduler();
+
+            new Thread(() => CreateLoop(processState.Scheduler)).Start();
+            new Thread(() => CreateLoop(rpcThread.Scheduler)).Start();
         }
 
         private static void CreateLoop(Scheduler scheduler)
@@ -48,8 +50,10 @@ namespace Syriaca.Client
             }
         }
 
-        private static void GetGdProcess(IReadOnlyCollection<string> args)
+        private static Process GetGdProcess(IReadOnlyCollection<string> args)
         {
+            Process proc = null;
+
             if (args.Count > 0 && args.Any(a => a == "--opengd" || a == "-o"))
             {
                 // TODO: Allow custom installation paths
@@ -61,7 +65,7 @@ namespace Syriaca.Client
                     UseShellExecute = false
                 };
 
-                gdProcess = Process.Start(processStartInfo);
+                proc = Process.Start(processStartInfo);
 
                 // doesn't open immediately so we will have to wait a bit
                 Thread.Sleep(TimeSpan.FromSeconds(10));
@@ -70,13 +74,15 @@ namespace Syriaca.Client
             {
                 try
                 {
-                    gdProcess = Process.GetProcessesByName("GeometryDash")[0];
+                    proc = Process.GetProcessesByName("GeometryDash")[0];
                 }
                 catch
                 {
                     // ignored
                 }
             }
+
+            return proc;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Syriaca.Client.Information;
 using Syriaca.Client.Utils;
 
@@ -16,11 +15,11 @@ namespace Syriaca.Client.Memory
 
         public event Action<ValueChangedEvent<SceneInformation>> SceneChanged;
 
-        public GdProcessState(Process process)
+        public GdProcessState(GdReader reader)
         {
+            this.reader = reader;
             Scene = new SceneInformation();
             PlayerState = new PlayerState();
-            reader = new GdReader(process);
             
             scheduleActions();
         }
