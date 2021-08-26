@@ -5,8 +5,24 @@ using System.Linq;
 
 namespace Syriaca.Client.Memory
 {
+    /// <summary>
+    /// A <see cref="Dictionary{TKey,TValue}"/> containing the name of the address and the <see cref="Address"/> value.
+    /// </summary>
     public class AddressDictionary : Dictionary<string, Address>
     {
+        /// <summary>
+        /// Parses a string of text containing all of the memory offsets and converts it into an <see cref="AddressDictionary"/>.
+        /// Note that the file format will follow this pattern:
+        /// 
+        /// <code>
+        /// [Address name]
+        /// offsets: 0x01 | 0x02
+        /// valueType: int
+        ///
+        /// # ...
+        /// </code>
+        /// </summary>
+        /// <param name="contents">The contents, usually from a file.</param>
         public static AddressDictionary Parse(string contents)
         {
             var lines = contents.Split(Environment.NewLine);

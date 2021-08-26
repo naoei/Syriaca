@@ -2,12 +2,24 @@
 
 namespace Syriaca.Client.Memory
 {
+    /// <summary>
+    /// Information on an address.
+    /// </summary>
     public class Address
     {
-        public string Name { get; set; }
+        /// <summary>
+        /// The name of the address, also used for searching in <see cref="AddressDictionary"/>.
+        /// </summary>
+        public string Name { get; init; }
 
+        /// <summary>
+        /// Offsets to get to the specific value.
+        /// </summary>
         public int[] Offsets { get; set; }
 
+        /// <summary>
+        /// The value type of the Address
+        /// </summary>
         public string Type { get; set; }
         
         public override string ToString() 
