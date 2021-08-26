@@ -19,16 +19,16 @@ namespace Syriaca.Client.Memory
         /// </summary>
         public MemorySharp Memory { get; }
 
-        private readonly AddressDictionary addresses;
+        public AddressDictionary Addresses { get; }
 
         protected MemoryReader(Process process)
         {
             Memory = new MemorySharp(Process = process);
-            addresses = CreateAddressDictionary();
+            Addresses = CreateAddressDictionary();
         }
 
         /// <summary>
-        /// Creates all of the necessary memory addresses and their offsets.
+        /// Creates all of the necessary memory Addresses and their offsets.
         /// </summary>
         /// <returns>An <seealso cref="AddressDictionary"/>.</returns>
         protected abstract AddressDictionary CreateAddressDictionary();
@@ -43,7 +43,7 @@ namespace Syriaca.Client.Memory
         /// <returns>The value in memory.</returns>
         public T Read<T>(string addressEntryName, IntPtr baseAddress)
             where T : struct =>
-            Read<T>(addresses[addressEntryName], baseAddress);
+            Read<T>(Addresses[addressEntryName], baseAddress);
 
         /// <summary>
         /// Reads any type of value in the <see cref="Process"/>'s memory region.
@@ -79,7 +79,7 @@ namespace Syriaca.Client.Memory
         /// <param name="baseAddress">The base address.</param>
         /// <returns>The string value in memory.</returns>
         public string ReadString(string addressEntryName, IntPtr baseAddress)
-            => ReadString(addresses[addressEntryName], baseAddress);
+            => ReadString(Addresses[addressEntryName], baseAddress);
 
         /// <summary>
         /// Reads a <see cref="string"/> in UTF8 encoding in the <see cref="Process"/>'s memory region.

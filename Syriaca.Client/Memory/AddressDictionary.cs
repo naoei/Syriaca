@@ -63,7 +63,7 @@ namespace Syriaca.Client.Memory
                         break;
 
                     case "valueType":
-                        currentEntry.Type = value;
+                        currentEntry.Type = value.Replace(" ", "");
 
                         break;
                 }

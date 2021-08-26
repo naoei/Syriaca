@@ -48,10 +48,49 @@ namespace Syriaca.Client.Memory
             Scene = newScene;
         }
 
-        // TODO
         private Dictionary<string, object> getSceneData()
         {
-            return new ();
+            var dict = new Dictionary<string, object>();
+
+            foreach (var address in reader.Addresses)
+            {
+                try
+                {
+                    switch (address.Value.Type)
+                    {
+                        case "string":
+                            var stringValue = reader.ReadString(address.Value);
+                            dict.Add(address.Key, stringValue);
+                            break;
+                        
+                        case "int":
+                            var intValue = reader.Read<int>(address.Value);
+                            dict.Add(address.Key, intValue);
+                            break;
+                        
+                        case "float":
+                            var floatValue = reader.Read<float>(address.Value);
+                            dict.Add(address.Key, floatValue);
+                            break;
+                        
+                        case "bool":
+                            var boolValue = reader.Read<bool>(address.Value);
+                            dict.Add(address.Key, boolValue);
+                            break;
+                        
+                        default:
+                            // We don't know what the type is, so maybe it's not all that important.
+                            throw new Exception();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    // don't do anything
+                }
+            }
+
+            return dict;
         }
     }
 }

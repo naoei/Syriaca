@@ -27,5 +27,26 @@ namespace Syriaca.Client.Memory
 
         public (int user, int account) ReadPlayerIds() 
             => (Read<int>("User ID", gameManager), Read<int>("Account ID", accountManager));
+
+        public T Read<T>(string addressEntryName)
+            where T : struct
+            => Read<T>(addressEntryName, gameManager);
+        
+        public T Read<T>(Address entry)
+            where T : struct
+            => Read<T>(entry, gameManager);
+        
+        public T Read<T>(params int[] offsets)
+            where T : struct
+            => Read<T>(gameManager, offsets);
+        
+        public string ReadString(string addressEntryName)
+            => ReadString(addressEntryName, gameManager);
+
+        public string ReadString(Address entry)
+            => ReadString(entry, gameManager);
+
+        public string ReadString(params int[] offsets)
+            => ReadString(gameManager, offsets);
     }
 }
