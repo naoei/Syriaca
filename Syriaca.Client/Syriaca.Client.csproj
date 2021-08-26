@@ -7,6 +7,7 @@
 
     <ItemGroup>
       <PackageReference Include="MemorySharp" Version="1.2.0" />
+      <PackageReference Include="ppy.osu.Framework" Version="2021.819.0" />
     </ItemGroup>
 
     <ItemGroup>
