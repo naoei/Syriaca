@@ -33,5 +33,10 @@ namespace Syriaca.Client
             Logger.Debug($"Enqueueing action: {action.Method.Name} for {Name}");
             runQueue.Enqueue(action);
         }
+
+        public void Clear()
+        {
+            runQueue.Clear();
+        }
     }
 }

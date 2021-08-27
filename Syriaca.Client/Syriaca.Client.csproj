@@ -26,4 +26,13 @@
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Rpc\Scenes\PlayScene_Calculator.cs">
+        <DependentUpon>PlayScene.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Rpc\Scenes\PlayScene_SceneData.cs">
+        <DependentUpon>PlayScene.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

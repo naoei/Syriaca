@@ -18,7 +18,7 @@ namespace Syriaca.Client.Rpc.Scenes
             Reader = reader;
         }
 
-        protected virtual void Pulse()
+        public virtual void Pulse()
         {
         }
 
