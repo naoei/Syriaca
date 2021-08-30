@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Syriaca.Client.Memory;
+﻿using Syriaca.Client.Memory;
 
 namespace Syriaca.Client.Rpc.Scenes
 {
@@ -24,41 +22,52 @@ namespace Syriaca.Client.Rpc.Scenes
             public bool[] CoinsGrabbed { get; } = new bool[3];
             public double TrueDifficulty { get; set; }
 
-            public LevelInfo(MemoryReader reader, IReadOnlyDictionary<string, object> sceneData)
+            public LevelInfo(GdReader reader)
             {
-                UpdateInformation(reader, sceneData);
+                Update(reader);
             }
 
-            public void UpdateInformation(MemoryReader reader, IReadOnlyDictionary<string, object> sceneData)
+            public void Update(GdReader reader)
             {
-                Id = (int) sceneData.GetValueOrDefault("Level ID", -882);
-
-                if ((int) sceneData.GetValueOrDefault("Level Title Length", 0) >= 15)
+                try
                 {
-                    //var titleAddress = reader.Read<IntPtr>("Level Title");
-                    Title = reader.ReadString((IntPtr) sceneData["Level Title"]);
+                    Id = reader.Read<int>("Level ID");
+
+                    // TODO: Figure out why this portion of the code is fucking up.
+                    // I already have my theory and believe that it's due to the string encoding,
+                    // will have to eventually support custom string encoding.
+                    /*if (reader.Read<int>("Level Title Length") >= 15)
+                    {
+                        var titleAddress = reader.Read<IntPtr>("Level Title");
+                        Title = reader.ReadString(titleAddress);
+                    }
+                    else
+                    {*/
+                        Title = reader.ReadString("Level Title");
+                    //}
+
+                    Author = reader.ReadString("Level Author");
+                    Stars = reader.Read<int>("Level Stars");
+                    Demon = reader.Read<bool>("Is Demon");
+                    Auto = reader.Read<bool>("Is Auto");
+                    Difficulty = reader.Read<int>("Level Difficulty");
+                    DemonDifficulty = reader.Read<int>("Demon Difficulty");
+                    CompletionProgress = reader.Read<int>("Completion Progress");
+                    TotalAttempts = reader.Read<int>("Attempts");
+                    Jumps = reader.Read<int>("Jumps");
+                    MaxCoins = reader.Read<int>("Max Coins");
+                    Length = reader.Read<float>("Level Length");
+
+                    if (MaxCoins >= 1)
+                        for (var i = 0; i < 3; i++)
+                            CoinsGrabbed[i] = reader.Read<int>($"Coin {i} Grabbed") == 1;
                 }
-                else
+                catch
                 {
-                    Title = (string) sceneData.GetValueOrDefault("Level Title");
+                    Id = -882;
                 }
-
-                Author = (string) sceneData.GetValueOrDefault("Level Author");
-                Stars = (int) sceneData.GetValueOrDefault("Level Stars", 0);
-                Demon = (bool) sceneData.GetValueOrDefault("Is Demon", false);
-                Auto = (bool) sceneData.GetValueOrDefault("Is Auto", false);
-                Difficulty = (int) sceneData.GetValueOrDefault("Level Difficulty", 0);
-                DemonDifficulty = (int) sceneData.GetValueOrDefault("Demon Difficulty", 0);
-                CompletionProgress = (int) sceneData.GetValueOrDefault("Completion Progress", 0);
-                TotalAttempts = (int) sceneData.GetValueOrDefault("Attempts", 0);
-                Jumps = (int) sceneData.GetValueOrDefault("Jumps", 0);
-                MaxCoins = (int) sceneData.GetValueOrDefault("Max Coins", 0);
-                Length = (float) sceneData.GetValueOrDefault("Level Length", 0f);
-
-                if (MaxCoins >= 1)
-                    for (var i = 0; i < 3; i++)
-                        CoinsGrabbed[i] = (int) sceneData.GetValueOrDefault($"Coin {i} Grabbed", 0) == 1;
             }
+            
 
             public override string ToString()
                 => $"{Title} - {Author}{GetDifficultyString()} {GetIdString()}";

@@ -4,9 +4,9 @@ namespace Syriaca.Client.Information
 {
     public class SceneInformation
     {
-        public GameScene Scene { get; set; }
+        public GameScene Scene { get; }
 
-        public Dictionary<string, object> SceneData { get; set; }
+        public Dictionary<string, object> SceneData { get; }
 
         public SceneInformation()
             : this(GameScene.Unknown)

@@ -9,9 +9,9 @@ namespace Syriaca.Client.Memory
     {
         public SceneInformation Scene { get; private set; }
         public PlayerState PlayerState { get; }
+        public Scheduler Scheduler { get; } = new(50);
 
         private readonly GdReader reader;
-        public Scheduler Scheduler { get; } = new(50);
 
         public event Action<ValueChangedEvent<SceneInformation>> SceneChanged;
 
@@ -43,7 +43,7 @@ namespace Syriaca.Client.Memory
                 return;
 
             var newScene = new SceneInformation(currentScene, getSceneData());
-            
+
             SceneChanged?.Invoke(new ValueChangedEvent<SceneInformation>(Scene, newScene));
             Logger.Log($"Scene changed from {Scene.Scene} -> {newScene.Scene} with {newScene.SceneData.Count} data attributes");
             Scene = newScene;
@@ -53,34 +53,34 @@ namespace Syriaca.Client.Memory
         {
             var dict = new Dictionary<string, object>();
 
-            foreach (var address in reader.Addresses)
+            foreach (var (key, address) in reader.Addresses)
             {
                 try
                 {
-                    switch (address.Value.Type)
+                    switch (address.Type)
                     {
                         case "string":
-                            var stringValue = reader.ReadString(address.Value);
-                            dict.Add(address.Key, stringValue);
-                            Logger.Debug($"{address.Key} - {stringValue}");
+                            var stringValue = reader.ReadString(address);
+                            dict.Add(key, stringValue);
+                            Logger.Debug($"{key} - {stringValue}");
                             break;
                         
                         case "int":
-                            var intValue = reader.Read<int>(address.Value);
-                            dict.Add(address.Key, intValue);
-                            Logger.Debug($"{address.Key} - {intValue}");
+                            var intValue = reader.Read<int>(address);
+                            dict.Add(key, intValue);
+                            Logger.Debug($"{key} - {intValue}");
                             break;
                         
                         case "float":
-                            var floatValue = reader.Read<float>(address.Value);
-                            dict.Add(address.Key, floatValue);
-                            Logger.Debug($"{address.Key} - {floatValue}");
+                            var floatValue = reader.Read<float>(address);
+                            dict.Add(key, floatValue);
+                            Logger.Debug($"{key} - {floatValue}");
                             break;
                         
                         case "bool":
-                            var boolValue = reader.Read<bool>(address.Value);
-                            dict.Add(address.Key, boolValue);
-                            Logger.Debug($"{address.Key} - {boolValue}");
+                            var boolValue = reader.Read<bool>(address);
+                            dict.Add(key, boolValue);
+                            Logger.Debug($"{key} - {boolValue}");
                             break;
                         
                         default:

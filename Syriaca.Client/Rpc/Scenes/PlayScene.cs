@@ -19,7 +19,7 @@ namespace Syriaca.Client.Rpc.Scenes
         {
             client.Presence.WithTimestamps(Timestamps.Now);
 
-            levelInfo = new LevelInfo(reader, sceneProperties);
+            levelInfo = new LevelInfo(reader);
             playerInfo = new PlayerInfo();
             levelInfo.TrueDifficulty = CalculateDifficulty();
         }
@@ -27,7 +27,7 @@ namespace Syriaca.Client.Rpc.Scenes
         public override void Pulse()
         {
             if (levelInfo.Id == -882)
-                levelInfo.UpdateInformation(Reader, SceneProperties); // try to read the data again.
+                levelInfo.Update(Reader); // try to read the data again.
 
             playerInfo.Update(Reader);
 
