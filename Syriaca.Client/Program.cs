@@ -31,20 +31,23 @@ namespace Syriaca.Client
             processState.StartScheduler();
             rpcThread.StartScheduler();
 
-            new Thread(() => CreateLoop(processState.Scheduler)).Start();
-            new Thread(() => CreateLoop(rpcThread.Scheduler)).Start();
+            CreateLoop(processState.Scheduler);
+            CreateLoop(rpcThread.Scheduler);
         }
 
         private static void CreateLoop(Scheduler scheduler)
         {
-            while (true)
+            new Thread(() =>
             {
-                if (scheduler.Stopwatch.ElapsedMilliseconds < scheduler.Delay)
-                    continue;
+                while (true)
+                {
+                    if (scheduler.Stopwatch.ElapsedMilliseconds < scheduler.Delay)
+                        continue;
 
-                scheduler.Stopwatch.Restart();
-                scheduler.Pulse();
-            }
+                    scheduler.Stopwatch.Restart();
+                    scheduler.Pulse();
+                }
+            }).Start();
         }
     }
 }
