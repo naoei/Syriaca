@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using Syriaca.Client.Memory;
 using Syriaca.Client.Rpc;
@@ -17,7 +14,7 @@ namespace Syriaca.Client
 
         public static void Main(string[] args)
         {
-            var proc = GetGdProcess(args);
+            var proc = ProcessUtils.GetGdProcess(args.Length > 0 && args.Any(a => a == "--opengd" || a == "-o"));
 
             if (proc == null)
             {
@@ -48,41 +45,6 @@ namespace Syriaca.Client
                 scheduler.Stopwatch.Restart();
                 scheduler.Pulse();
             }
-        }
-
-        private static Process GetGdProcess(IReadOnlyCollection<string> args)
-        {
-            Process proc = null;
-
-            if (args.Count > 0 && args.Any(a => a == "--opengd" || a == "-o"))
-            {
-                // TODO: Allow custom installation paths
-                const string path = @"C:\Program Files (x86)\Steam\steamapps\common\Geometry Dash";
-
-                var processStartInfo = new ProcessStartInfo(path + @"\GeometryDash.exe")
-                {
-                    WorkingDirectory = path,
-                    UseShellExecute = false
-                };
-
-                proc = Process.Start(processStartInfo);
-
-                // doesn't open immediately so we will have to wait a bit
-                Thread.Sleep(TimeSpan.FromSeconds(10));
-            }
-            else
-            {
-                try
-                {
-                    proc = Process.GetProcessesByName("GeometryDash")[0];
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-
-            return proc;
         }
     }
 }
