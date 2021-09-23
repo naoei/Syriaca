@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using Syriaca.Client.Memory;
-using Syriaca.Client.Rpc;
+using Syriaca.Client.Plugins;
 using Syriaca.Client.Utils;
 
 namespace Syriaca.Client
@@ -10,7 +10,6 @@ namespace Syriaca.Client
     {
         private static GdReader reader;
         private static GdProcessState processState;
-        private static RpcThread rpcThread;
 
         public static void Main(string[] args)
         {
@@ -26,13 +25,23 @@ namespace Syriaca.Client
             reader = new GdReader(proc);
 
             processState = new GdProcessState(reader);
-            rpcThread = new RpcThread(processState, reader);
-
             processState.StartScheduler();
-            rpcThread.StartScheduler();
+
+            var store = new PluginStore();
+
+            foreach (var plugin in store.AvailablePlugins)
+            {
+                plugin.State = processState;
+                plugin.GdReader = reader;
+                
+                Logger.Log(plugin.Name);
+                
+                var scheduler = plugin.CreateScheduler();
+                scheduler.Pulse(); // Starts the scheduler.
+                CreateLoop(scheduler);
+            }
 
             CreateLoop(processState.Scheduler);
-            CreateLoop(rpcThread.Scheduler);
         }
 
         private static void CreateLoop(Scheduler scheduler)

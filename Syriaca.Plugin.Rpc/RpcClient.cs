@@ -3,9 +3,9 @@ using DiscordRPC;
 using DiscordRPC.Message;
 using Syriaca.Client.Utils;
 
-namespace Syriaca.Client.Rpc
+namespace Syriaca.Plugin.Rpc
 {
-    public class RpcClient //: IDisposable
+    public class RpcClient : IDisposable
     {
         private const string client_id = "419568479172034561";
         private readonly DiscordRpcClient client;
@@ -53,9 +53,9 @@ namespace Syriaca.Client.Rpc
             client.SetPresence(Presence);
         }
 
-        /*public void Dispose()
+        public void Dispose()
         {
             client.Dispose();
-        }*/
+        }
     }
 }

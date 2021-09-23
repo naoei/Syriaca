@@ -2,7 +2,7 @@
 using Syriaca.Client.Information;
 using Syriaca.Client.Memory;
 
-namespace Syriaca.Client.Rpc.Scenes
+namespace Syriaca.Plugin.Rpc.Scenes
 {
     public class IdleScene : RpcScene
     {

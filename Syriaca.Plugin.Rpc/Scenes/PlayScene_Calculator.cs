@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Syriaca.Client.Rpc.Scenes
+namespace Syriaca.Plugin.Rpc.Scenes
 {
     public partial class PlayScene
     {

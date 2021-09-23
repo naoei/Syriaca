@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0-windows</TargetFramework>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <Reference Include="DiscordRPC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>..\DLLs\DiscordRPC.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Syriaca.Client\Syriaca.Client.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Scenes\PlayScene_Calculator.cs">
+        <DependentUpon>PlayScene.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Scenes\PlayScene_SceneData.cs">
+        <DependentUpon>PlayScene.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>

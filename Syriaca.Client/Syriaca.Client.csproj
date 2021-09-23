@@ -15,24 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="DiscordRPC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\DLLs\DiscordRPC.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
         <Content Include="Addresses.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Rpc\Scenes\PlayScene_Calculator.cs">
-        <DependentUpon>PlayScene.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Rpc\Scenes\PlayScene_SceneData.cs">
-        <DependentUpon>PlayScene.cs</DependentUpon>
-      </Compile>
     </ItemGroup>
 
 </Project>
