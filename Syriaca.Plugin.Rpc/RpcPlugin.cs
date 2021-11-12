@@ -18,8 +18,9 @@ namespace Syriaca.Plugin.Rpc
             var scheduler = new Scheduler(2000);
             client = new RpcClient();
 
-            currentScene = new UnknownScene(client, new Dictionary<string, object>(), GdReader);
+            toRpcScene(State.Scene);
             scheduler.Add(client.Update);
+            scheduler.Add(currentScene.Pulse);
             
             client.ChangeStatus(s =>
             {
@@ -41,31 +42,38 @@ namespace Syriaca.Plugin.Rpc
         {
             scheduler.Clear();
 
-            switch (obj.NewValue.Scene)
+            toRpcScene(obj.NewValue);
+
+            scheduler.Add(currentScene.Pulse);
+            scheduler.Add(client.Update);
+        }
+
+        private void toRpcScene(SceneInformation info)
+        {
+            switch (info.Scene)
             {
-                case GameScene.MainMenu:
+                case GameScene.MainMenu: 
+                case GameScene.Search: 
+                case GameScene.Select:
                 case GameScene.Online:
                     Idle:
-                    currentScene = new IdleScene(client, obj.NewValue.SceneData, GdReader);
+                    currentScene = new IdleScene(client, info.SceneData, GdReader);
 
                     break;
 
                 case GameScene.Play:
-                    if (obj.NewValue.SceneData.Count > 2)
-                        currentScene = new PlayScene(client, obj.NewValue.SceneData, GdReader);
+                    if (info.SceneData.Count > 2)
+                        currentScene = new PlayScene(client, info.SceneData, GdReader);
                     else
                         goto Idle;
 
                     break;
-
+                
                 default:
-                    currentScene = new UnknownScene(client, obj.NewValue.SceneData, GdReader);
+                    currentScene = new UnknownScene(client, info.SceneData, GdReader);
 
                     break;
             }
-
-            scheduler.Add(currentScene.Pulse);
-            scheduler.Add(client.Update);
         }
     }
 }

@@ -5,11 +5,11 @@ namespace Syriaca.Client.Plugins
 {
     public abstract class Plugin
     {
-        public int Id { get; internal set; }
+        public int Id { get; set; }
 
-        public GdProcessState State { get; internal set; }
+        public GdProcessState State { get; set; }
         
-        public GdReader GdReader { get; internal set; }
+        public GdReader GdReader { get; set; }
         
         public MemorySharp MemorySharp => GdReader.Memory;
         

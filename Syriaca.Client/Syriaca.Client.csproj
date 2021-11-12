@@ -5,7 +5,6 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Platforms>AnyCPU;x86</Platforms>
-        <OutputType>Exe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>

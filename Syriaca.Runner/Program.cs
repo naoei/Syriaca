@@ -1,10 +1,11 @@
 ﻿using System.Linq;
 using System.Threading;
+using Syriaca.Client;
 using Syriaca.Client.Memory;
 using Syriaca.Client.Plugins;
 using Syriaca.Client.Utils;
 
-namespace Syriaca.Client
+namespace Syriaca.Runner
 {
     public static class Program
     {

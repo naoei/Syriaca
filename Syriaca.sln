@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syriaca.Client", "Syriaca.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syriaca.Plugin.Rpc", "Syriaca.Plugin.Rpc\Syriaca.Plugin.Rpc.csproj", "{BCDF51B9-8486-412C-A8DA-0614CF59C14E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syriaca.Runner", "Syriaca.Runner\Syriaca.Runner.csproj", "{09580012-DE68-441F-8719-19F32AEFB0EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|x86 = Release|x86
@@ -18,5 +20,9 @@ Global
 		{BCDF51B9-8486-412C-A8DA-0614CF59C14E}.Release|x86.Build.0 = Release|Any CPU
 		{BCDF51B9-8486-412C-A8DA-0614CF59C14E}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{BCDF51B9-8486-412C-A8DA-0614CF59C14E}.Debug|x86.Build.0 = Debug|Any CPU
+		{09580012-DE68-441F-8719-19F32AEFB0EE}.Release|x86.ActiveCfg = Release|Any CPU
+		{09580012-DE68-441F-8719-19F32AEFB0EE}.Release|x86.Build.0 = Release|Any CPU
+		{09580012-DE68-441F-8719-19F32AEFB0EE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{09580012-DE68-441F-8719-19F32AEFB0EE}.Debug|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
