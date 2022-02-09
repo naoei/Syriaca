@@ -11,10 +11,16 @@ namespace Syriaca.Client.Plugins
         
         public GdReader GdReader { get; set; }
         
+        public Scheduler Scheduler { get; set; }
+        
         public MemorySharp MemorySharp => GdReader.Memory;
         
         public abstract string Name { get; }
 
         public abstract Scheduler CreateScheduler();
+
+        public virtual void OnScheduleCreated()
+        {
+        }
     }
 }

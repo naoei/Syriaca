@@ -24,9 +24,6 @@ namespace Syriaca.Client.Memory
             scheduleActions();
         }
 
-        public void StartScheduler()
-            => Scheduler.Pulse();
-
         public (int user, int account) GetPlayerId()
             => reader.ReadPlayerIds();
         

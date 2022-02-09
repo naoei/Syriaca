@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Syriaca.Client;
 using Syriaca.Client.Memory;
 using Syriaca.Client.Plugins;
@@ -11,6 +11,7 @@ namespace Syriaca.Runner
     {
         private static GdReader reader;
         private static GdProcessState processState;
+        private static readonly List<Scheduler> schedulers = new();
 
         public static void Main(string[] args)
         {
@@ -26,7 +27,7 @@ namespace Syriaca.Runner
             reader = new GdReader(proc);
 
             processState = new GdProcessState(reader);
-            processState.StartScheduler();
+            schedulers.Add(processState.Scheduler);
 
             var store = new PluginStore();
 
@@ -34,30 +35,32 @@ namespace Syriaca.Runner
             {
                 plugin.State = processState;
                 plugin.GdReader = reader;
-                
+
                 Logger.Log("Successfully loaded: " + plugin.Name);
-                
-                var scheduler = plugin.CreateScheduler();
-                scheduler.Pulse(); // Starts the scheduler.
-                CreateLoop(scheduler);
+
+                schedulers.Add((plugin.Scheduler = plugin.CreateScheduler()));
+                plugin.OnScheduleCreated();
             }
 
-            CreateLoop(processState.Scheduler);
+            RunSchedulers();
         }
 
-        private static void CreateLoop(Scheduler scheduler)
+        // ReSharper disable once FunctionNeverReturns
+        private static void RunSchedulers()
         {
-            new Thread(() =>
+            foreach (var s in schedulers)
+                s.Pulse(); // Start all of the schedulers.
+
+            while (true)
             {
-                while (true)
+                foreach (var s in schedulers)
                 {
-                    if (scheduler.Stopwatch.ElapsedMilliseconds < scheduler.Delay)
+                    if (s.Stopwatch.ElapsedMilliseconds < s.Delay)
                         continue;
 
-                    scheduler.Stopwatch.Restart();
-                    scheduler.Pulse();
+                    s.Pulse();
                 }
-            }).Start();
+            }
         }
     }
 }
