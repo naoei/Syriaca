@@ -26,10 +26,19 @@ namespace Syriaca.Plugin.Rpc.Scenes
 
         public override void Pulse()
         {
-            if (levelInfo.Id == -882)
-                levelInfo.Update(Reader); // try to read the data again.
-
+            levelInfo.Update(Reader);
             playerInfo.Update(Reader);
+            
+            if (levelInfo.Id == -882)
+            {
+                Client.ChangeStatus(s =>
+                {
+                    s.Details = string.Empty;
+                    s.State = "In menus";
+                    s.Timestamps = null;
+                });
+                return;
+            }
 
             playerProgress = playerInfo.X / levelInfo.Length * 100;
 
@@ -41,7 +50,7 @@ namespace Syriaca.Plugin.Rpc.Scenes
                 s.Details = levelInfo.ToString();
 
                 s.State =
-                    $"{playerProgress:N3}% | {getCoinString()} {(levelInfo.Id != 0 ? $"Score: {CalculateScore():N0} ({CalculatePerformance():N} pp)" : "")}";
+                    $"{playerProgress:N2}% | {getCoinString()} {(levelInfo.Id != 0 ? $"Score: {CalculateScore():N0} ({CalculatePerformance():N} pp)" : "")}";
 
                 if (levelInfo.Id != 0)
                 {
