@@ -6,8 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Syriaca.Client\Syriaca.Client.csproj" />
-      <ProjectReference Include="..\Syriaca.Plugin.Rpc\Syriaca.Plugin.Rpc.csproj" />
+        <ProjectReference Include="..\Syriaca.Client\Syriaca.Client.csproj"/>
+        <ProjectReference Include="..\Syriaca.Plugin.Rpc\Syriaca.Plugin.Rpc.csproj"/>
     </ItemGroup>
 
 </Project>

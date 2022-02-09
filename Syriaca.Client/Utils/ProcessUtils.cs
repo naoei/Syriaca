@@ -40,7 +40,7 @@ namespace Syriaca.Client.Utils
 
                 if (!IsProcessOpen(process_name))
                     return null;
-                
+
                 proc = Process.GetProcessesByName(process_name)[0];
             }
 

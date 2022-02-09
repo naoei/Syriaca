@@ -7,8 +7,8 @@ namespace Syriaca.Plugin.Rpc.Scenes
     public class IdleScene : RpcScene
     {
         public override IEnumerable<GameScene> Scenes => new[] { GameScene.MainMenu, GameScene.Online };
-        
-        public IdleScene(RpcClient client, Dictionary<string, object> sceneProperties, GdReader reader) 
+
+        public IdleScene(RpcClient client, Dictionary<string, object> sceneProperties, GdReader reader)
             : base(client, sceneProperties, reader)
         {
             client.ChangeStatus(s =>

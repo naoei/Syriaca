@@ -18,7 +18,7 @@ namespace Syriaca.Client.Plugins
             loadFromDisk();
             addMissingPlugins();
         }
-        
+
         public IEnumerable<Plugin> AvailablePlugins { get; private set; }
 
         private void addMissingPlugins()
@@ -51,7 +51,7 @@ namespace Syriaca.Client.Plugins
         private void loadPluginFromFile(string file)
         {
             var fileName = Path.GetFileNameWithoutExtension(file);
-            
+
             if (loadedAssemblies.Values.Any(t => t.Namespace == fileName))
                 return;
 

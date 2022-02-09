@@ -38,7 +38,7 @@ namespace Syriaca.Runner
 
                 Logger.Log("Successfully loaded: " + plugin.Name);
 
-                schedulers.Add((plugin.Scheduler = plugin.CreateScheduler()));
+                schedulers.Add(plugin.Scheduler = plugin.CreateScheduler());
                 plugin.OnScheduleCreated();
             }
 
@@ -52,7 +52,6 @@ namespace Syriaca.Runner
                 s.Pulse(); // Start all of the schedulers.
 
             while (true)
-            {
                 foreach (var s in schedulers)
                 {
                     if (s.Stopwatch.ElapsedMilliseconds < s.Delay)
@@ -60,7 +59,6 @@ namespace Syriaca.Runner
 
                     s.Pulse();
                 }
-            }
         }
     }
 }

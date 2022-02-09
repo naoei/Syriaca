@@ -10,7 +10,7 @@ namespace Syriaca.Client
         private readonly Queue<Action> runQueue = new();
 
         public int Delay { get; }
-        public string Name { get;  }
+        public string Name { get; }
 
         public readonly Stopwatch Stopwatch = new();
 

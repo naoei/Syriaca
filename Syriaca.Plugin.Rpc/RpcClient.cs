@@ -20,7 +20,7 @@ namespace Syriaca.Plugin.Rpc
             client.OnReady += onReady;
             client.OnConnectionFailed += onConnectionFailed;
             client.OnError += onError;
-            
+
             client.Initialize();
         }
 
@@ -31,14 +31,14 @@ namespace Syriaca.Plugin.Rpc
 
         private void onConnectionFailed(object _, ConnectionFailedMessage args)
         {
-            Logger.Error($"Failed to connect to Discord's RPC sever.");
+            Logger.Error("Failed to connect to Discord's RPC sever.");
             client.Deinitialize();
         }
 
         private void onReady(object _, ReadyMessage ready)
         {
             Logger.Log($"RPC Ready! Running v{ready.Version} for {ready.User}");
-            
+
             OnReady?.Invoke();
             client.SetPresence(Presence);
         }

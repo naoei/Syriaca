@@ -8,7 +8,7 @@ namespace Syriaca.Client.Memory
     public class Address
     {
         /// <summary>
-        /// The name of the address, also used for searching in <see cref="AddressDictionary"/>.
+        /// The name of the address, also used for searching in <see cref="AddressDictionary" />.
         /// </summary>
         public string Name { get; init; }
 
@@ -21,8 +21,8 @@ namespace Syriaca.Client.Memory
         /// The value type of the Address
         /// </summary>
         public string Type { get; set; }
-        
-        public override string ToString() 
+
+        public override string ToString()
             => $"{Name} - {{ {string.Join(", ", Offsets.Select(o => $"0x{o:X}"))} }} - {Type}";
     }
 }

@@ -28,7 +28,7 @@ namespace Syriaca.Plugin.Rpc.Scenes
         {
             levelInfo.Update(Reader);
             playerInfo.Update(Reader);
-            
+
             if (levelInfo.Id == -882)
             {
                 Client.ChangeStatus(s =>
@@ -38,6 +38,7 @@ namespace Syriaca.Plugin.Rpc.Scenes
                     s.Timestamps = null;
                     s.Buttons = null;
                 });
+
                 return;
             }
 
@@ -54,7 +55,6 @@ namespace Syriaca.Plugin.Rpc.Scenes
                     $"{playerProgress:N2}% | {getCoinString()} {(levelInfo.Id != 0 ? $"Score: {CalculateScore():N0} ({CalculatePerformance():N} pp)" : "")}";
 
                 if (levelInfo.Id != 0)
-                {
                     s.Buttons = new[]
                     {
                         new Button
@@ -63,7 +63,6 @@ namespace Syriaca.Plugin.Rpc.Scenes
                             Url = $"https://gdbrowser.com/{levelInfo.Id}"
                         }
                     };
-                }
             });
         }
 

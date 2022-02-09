@@ -20,13 +20,13 @@ namespace Syriaca.Client.Memory
             this.reader = reader;
             Scene = new SceneInformation();
             PlayerState = new PlayerState();
-            
+
             scheduleActions();
         }
 
         public (int user, int account) GetPlayerId()
             => reader.ReadPlayerIds();
-        
+
         private void scheduleActions()
         {
             Scheduler.Add(getCurrentScene);
@@ -51,7 +51,6 @@ namespace Syriaca.Client.Memory
             var dict = new Dictionary<string, object>();
 
             foreach (var (key, address) in reader.Addresses)
-            {
                 try
                 {
                     switch (address.Type)
@@ -61,25 +60,25 @@ namespace Syriaca.Client.Memory
                             dict.Add(key, stringValue);
                             Logger.Debug($"{key} - {stringValue}");
                             break;
-                        
+
                         case "int":
                             var intValue = reader.Read<int>(address);
                             dict.Add(key, intValue);
                             Logger.Debug($"{key} - {intValue}");
                             break;
-                        
+
                         case "float":
                             var floatValue = reader.Read<float>(address);
                             dict.Add(key, floatValue);
                             Logger.Debug($"{key} - {floatValue}");
                             break;
-                        
+
                         case "bool":
                             var boolValue = reader.Read<bool>(address);
                             dict.Add(key, boolValue);
                             Logger.Debug($"{key} - {boolValue}");
                             break;
-                        
+
                         default:
                             // We don't know what the type is, so maybe it's not all that important.
                             throw new Exception();
@@ -89,7 +88,6 @@ namespace Syriaca.Client.Memory
                 {
                     // don't do anything
                 }
-            }
 
             return dict;
         }

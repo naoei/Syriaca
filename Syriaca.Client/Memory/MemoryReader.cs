@@ -6,7 +6,7 @@ using Binarysharp.MemoryManagement;
 namespace Syriaca.Client.Memory
 {
     /// <summary>
-    /// Allows for reading memory regions in a <seealso cref="Process"/>.
+    /// Allows for reading memory regions in a <seealso cref="Process" />.
     /// </summary>
     public abstract class MemoryReader
     {
@@ -30,40 +30,46 @@ namespace Syriaca.Client.Memory
         /// <summary>
         /// Creates all of the necessary memory Addresses and their offsets.
         /// </summary>
-        /// <returns>An <seealso cref="AddressDictionary"/>.</returns>
+        /// <returns>An <seealso cref="AddressDictionary" />.</returns>
         protected abstract AddressDictionary CreateAddressDictionary();
 
         /// <summary>
-        /// Reads any type of value in the <see cref="Process"/>'s memory region.
+        /// Reads any type of value in the <see cref="Process" />'s memory region.
         /// </summary>
         /// <param name="addressEntryName">The address name to fetch offset data from.</param>
         /// <param name="baseAddress">The base address.</param>
-        /// <typeparam name="T">The type to read the value in-memory to.
-        /// Note that if you want to read a string, please use the <see cref="ReadString(string,System.IntPtr)"/> method.</typeparam>
+        /// <typeparam name="T">
+        /// The type to read the value in-memory to.
+        /// Note that if you want to read a string, please use the <see cref="ReadString(string,System.IntPtr)" /> method.
+        /// </typeparam>
         /// <returns>The value in memory.</returns>
         public T Read<T>(string addressEntryName, IntPtr baseAddress)
             where T : struct =>
             Read<T>(Addresses[addressEntryName], baseAddress);
 
         /// <summary>
-        /// Reads any type of value in the <see cref="Process"/>'s memory region.
+        /// Reads any type of value in the <see cref="Process" />'s memory region.
         /// </summary>
         /// <param name="entry">A custom address entry to read the offsets from.</param>
         /// <param name="baseAddress">The base address.</param>
-        /// <typeparam name="T">The type to read the value in-memory to.
-        /// Note that if you want to read a string, please use the <see cref="ReadString(string,System.IntPtr)"/> method.</typeparam>
+        /// <typeparam name="T">
+        /// The type to read the value in-memory to.
+        /// Note that if you want to read a string, please use the <see cref="ReadString(string,System.IntPtr)" /> method.
+        /// </typeparam>
         /// <returns>The value in memory.</returns>
         public T Read<T>(Address entry, IntPtr baseAddress)
             where T : struct =>
             Read<T>(baseAddress, entry.Offsets);
 
         /// <summary>
-        /// Reads any type of value in the <see cref="Process"/>'s memory region.
+        /// Reads any type of value in the <see cref="Process" />'s memory region.
         /// </summary>
         /// <param name="baseAddress">The base address.</param>
         /// <param name="offsets">The offsets to read to get to the value in-memory.</param>
-        /// <typeparam name="T">The type to read the value in memory to.
-        /// Note that if you want to read a string, please use the <see cref="ReadString(string,System.IntPtr)"/> method.</typeparam>
+        /// <typeparam name="T">
+        /// The type to read the value in memory to.
+        /// Note that if you want to read a string, please use the <see cref="ReadString(string,System.IntPtr)" /> method.
+        /// </typeparam>
         /// <returns>The value in memory.</returns>
         public T Read<T>(IntPtr baseAddress, params int[] offsets)
         {
@@ -73,7 +79,7 @@ namespace Syriaca.Client.Memory
         }
 
         /// <summary>
-        /// Reads a <see cref="string"/> in UTF8 encoding in the <see cref="Process"/>'s memory region.
+        /// Reads a <see cref="string" /> in UTF8 encoding in the <see cref="Process" />'s memory region.
         /// </summary>
         /// <param name="addressEntryName">The address name to fetch offset data from.</param>
         /// <param name="baseAddress">The base address.</param>
@@ -82,7 +88,7 @@ namespace Syriaca.Client.Memory
             => ReadString(Addresses[addressEntryName], baseAddress);
 
         /// <summary>
-        /// Reads a <see cref="string"/> in UTF8 encoding in the <see cref="Process"/>'s memory region.
+        /// Reads a <see cref="string" /> in UTF8 encoding in the <see cref="Process" />'s memory region.
         /// </summary>
         /// <param name="entry">A custom address entry to read the offsets from.</param>
         /// <param name="baseAddress">The base address.</param>
@@ -91,7 +97,7 @@ namespace Syriaca.Client.Memory
             => ReadString(baseAddress, entry.Offsets);
 
         /// <summary>
-        /// Reads a <see cref="string"/> in UTF8 encoding in the <see cref="Process"/>'s memory region.
+        /// Reads a <see cref="string" /> in UTF8 encoding in the <see cref="Process" />'s memory region.
         /// </summary>
         /// <param name="baseAddress">The base address.</param>
         /// <param name="offsets">The offsets to read to get to the value in-memory.</param>

@@ -7,8 +7,8 @@ namespace Syriaca.Plugin.Rpc.Scenes
     public class UnknownScene : RpcScene
     {
         public override IEnumerable<GameScene> Scenes => new[] { GameScene.Unknown };
-        
-        public UnknownScene(RpcClient client, Dictionary<string, object> sceneProperties, GdReader reader) 
+
+        public UnknownScene(RpcClient client, Dictionary<string, object> sceneProperties, GdReader reader)
             : base(client, sceneProperties, reader)
         {
             client.ChangeStatus(s =>

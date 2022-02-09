@@ -43,7 +43,7 @@ namespace Syriaca.Plugin.Rpc.Scenes
                     }
                     else
                     {*/
-                        Title = reader.ReadString("Level Title");
+                    Title = reader.ReadString("Level Title");
                     //}
 
                     Author = reader.ReadString("Level Author");
@@ -67,7 +67,7 @@ namespace Syriaca.Plugin.Rpc.Scenes
                     Id = -882;
                 }
             }
-            
+
 
             public override string ToString()
                 => $"{Title} - {Author}{GetDifficultyString()} {GetIdString()}";

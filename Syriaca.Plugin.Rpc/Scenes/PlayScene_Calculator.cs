@@ -6,8 +6,8 @@ namespace Syriaca.Plugin.Rpc.Scenes
     {
         public int CalculateScore()
         {
-            var res = (Math.Pow(Math.Pow(playerProgress / 100d, 1 + (CalculateDifficulty() / 14d) * 0.5d),
-                           1 - ((Math.Log10(levelInfo.Length) - 5) * 0.1)) * 1_000_000);
+            var res = Math.Pow(Math.Pow(playerProgress / 100d, 1 + CalculateDifficulty() / 14d * 0.5d),
+                          1 - (Math.Log10(levelInfo.Length) - 5) * 0.1) * 1_000_000;
 
             // jump bonus
             res += Math.Pow(levelInfo.Jumps, 1.1f);
@@ -26,12 +26,12 @@ namespace Syriaca.Plugin.Rpc.Scenes
 
             foreach (var coin in levelInfo.CoinsGrabbed)
                 if (coin)
-                    res *= (.1 / levelInfo.MaxCoins) + 1; // should at least have 1.1 bonus max.*/
+                    res *= .1 / levelInfo.MaxCoins + 1; // should at least have 1.1 bonus max.*/
 
             if (levelInfo.Demon)
                 res += Math.Pow(levelInfo.DemonDifficulty * (playerProgress / 100), 1.1f);
             else
-                res += 1 + (1 / (levelInfo.Difficulty == 0 ? 1 : levelInfo.Difficulty));
+                res += 1 + 1 / (levelInfo.Difficulty == 0 ? 1 : levelInfo.Difficulty);
 
             // uniformly calculate difficulty bonus
             //res *= Math.Pow(CalculateDifficulty(), (Stars * 0.95) / 1e7);
@@ -42,10 +42,10 @@ namespace Syriaca.Plugin.Rpc.Scenes
 
             double attemptPenalty;
 
-            if (levelInfo.Demon && levelInfo.TotalAttempts < (500 * levelInfo.DemonDifficulty))
-                attemptPenalty = Math.Pow(levelInfo.TotalAttempts, -((levelInfo.TotalAttempts * 0.75) / 1e7)); // demon, low attempts
+            if (levelInfo.Demon && levelInfo.TotalAttempts < 500 * levelInfo.DemonDifficulty)
+                attemptPenalty = Math.Pow(levelInfo.TotalAttempts, -(levelInfo.TotalAttempts * 0.75 / 1e7)); // demon, low attempts
             else
-                attemptPenalty = Math.Pow(levelInfo.TotalAttempts, -((levelInfo.TotalAttempts * 0.85) / 1e7)); // everything else
+                attemptPenalty = Math.Pow(levelInfo.TotalAttempts, -(levelInfo.TotalAttempts * 0.85 / 1e7)); // everything else
 
             res *= attemptPenalty;
 
@@ -68,7 +68,7 @@ namespace Syriaca.Plugin.Rpc.Scenes
                 4 => 11,
                 5 => 13,
                 6 => 14,
-                _ => 12,
+                _ => 12
             };
 
             // precursor length balancing

@@ -30,7 +30,8 @@ namespace Syriaca.Plugin.Rpc
         public override void OnScheduleCreated()
         {
             changeRpcScene(toRpcScene(State.Scene));
-            State.SceneChanged += obj => changeRpcScene(toRpcScene(obj.NewValue));;
+            State.SceneChanged += obj => changeRpcScene(toRpcScene(obj.NewValue));
+            ;
         }
 
         private void changeRpcScene(RpcScene scene)
@@ -48,8 +49,8 @@ namespace Syriaca.Plugin.Rpc
         {
             switch (info.Scene)
             {
-                case GameScene.MainMenu: 
-                case GameScene.Search: 
+                case GameScene.MainMenu:
+                case GameScene.Search:
                 case GameScene.Select:
                 case GameScene.Online:
                     Idle:
@@ -60,7 +61,7 @@ namespace Syriaca.Plugin.Rpc
                         return new PlayScene(client, info.SceneData, GdReader);
                     else
                         goto Idle;
-                
+
                 default:
                     return new UnknownScene(client, info.SceneData, GdReader);
             }

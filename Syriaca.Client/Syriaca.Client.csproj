@@ -8,9 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MemorySharp" Version="1.2.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-        <PackageReference Include="Spectre.Console" Version="0.41.0" />
+        <PackageReference Include="MemorySharp" Version="1.2.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3"/>
+        <PackageReference Include="Spectre.Console" Version="0.41.0"/>
     </ItemGroup>
 
     <ItemGroup>
