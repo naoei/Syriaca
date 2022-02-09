@@ -35,7 +35,7 @@ namespace Syriaca.Runner
                 plugin.State = processState;
                 plugin.GdReader = reader;
                 
-                Logger.Log(plugin.Name);
+                Logger.Log("Successfully loaded: " + plugin.Name);
                 
                 var scheduler = plugin.CreateScheduler();
                 scheduler.Pulse(); // Starts the scheduler.
