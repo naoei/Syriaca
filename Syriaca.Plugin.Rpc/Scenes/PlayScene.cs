@@ -36,6 +36,7 @@ namespace Syriaca.Plugin.Rpc.Scenes
                     s.Details = string.Empty;
                     s.State = "In menus";
                     s.Timestamps = null;
+                    s.Buttons = null;
                 });
                 return;
             }
