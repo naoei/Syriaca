@@ -31,7 +31,6 @@ namespace Syriaca.Plugin.Rpc
         {
             changeRpcScene(toRpcScene(State.Scene));
             State.SceneChanged += obj => changeRpcScene(toRpcScene(obj.NewValue));
-            ;
         }
 
         private void changeRpcScene(RpcScene scene)

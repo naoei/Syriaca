@@ -11,8 +11,6 @@ namespace Syriaca.Plugin.Rpc
         private readonly DiscordRpcClient client;
         public readonly RichPresence Presence = new();
 
-        public event Action OnReady;
-
         public RpcClient()
         {
             client = new DiscordRpcClient(client_id);
@@ -38,8 +36,6 @@ namespace Syriaca.Plugin.Rpc
         private void onReady(object _, ReadyMessage ready)
         {
             Logger.Log($"RPC Ready! Running v{ready.Version} for {ready.User}");
-
-            OnReady?.Invoke();
             client.SetPresence(Presence);
         }
 
