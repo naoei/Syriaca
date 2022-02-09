@@ -7,24 +7,42 @@ namespace Syriaca.Client.Memory
 {
     public class GdProcessState : IHasScheduler
     {
+        /// <summary>
+        /// Information about the current scene.
+        /// </summary>
         public SceneInformation Scene { get; private set; }
-        public PlayerState PlayerState { get; }
+
+        /// <summary>
+        /// The current player information.
+        /// </summary>
+        public PlayerState Player { get; }
+
+        /// <summary>
+        /// The scheduler that updates a given amount of time to fetch new data from Geometry Dash.
+        /// </summary>
         public Scheduler Scheduler { get; } = new(50);
 
         private readonly GdReader reader;
 
+        /// <summary>
+        /// Called upon when switching scenes.
+        /// This also includes information about the previous scene.
+        /// </summary>
         public event Action<ValueChangedEvent<SceneInformation>> SceneChanged;
 
         public GdProcessState(GdReader reader)
         {
             this.reader = reader;
             Scene = new SceneInformation();
-            PlayerState = new PlayerState();
+            Player = new PlayerState();
 
             scheduleActions();
         }
 
-        public (int user, int account) GetPlayerId()
+        /// <summary>
+        /// Gets both <see cref="PlayerState.AccountId"/> and <see cref="PlayerState.UserId"/>.
+        /// </summary>
+        public PlayerState GetPlayerId()
             => reader.ReadPlayerIds();
 
         private void scheduleActions()

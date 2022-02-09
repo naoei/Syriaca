@@ -19,6 +19,9 @@ namespace Syriaca.Client.Memory
         /// </summary>
         public MemorySharp Memory { get; }
 
+        /// <summary>
+        /// All of the addresses available for this <see cref="MemoryReader"/>.
+        /// </summary>
         public AddressDictionary Addresses { get; }
 
         protected MemoryReader(Process process)

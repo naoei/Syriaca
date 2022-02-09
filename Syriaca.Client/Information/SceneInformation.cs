@@ -2,10 +2,19 @@
 
 namespace Syriaca.Client.Information
 {
+    /// <summary>
+    /// Holds information about a scene. 
+    /// </summary>
     public class SceneInformation
     {
+        /// <summary>
+        /// The scene to hold information for.
+        /// </summary>
         public GameScene Scene { get; }
 
+        /// <summary>
+        /// The information for this scene.
+        /// </summary>
         public Dictionary<string, object> SceneData { get; }
 
         public SceneInformation()

@@ -7,6 +7,10 @@ namespace Syriaca.Client.Utils
 {
     public static class ProcessUtils
     {
+        /// <summary>
+        /// Checks if a process is open or not.
+        /// </summary>
+        /// <param name="processName">The name of the process to check/</param>
         public static bool IsProcessOpen(string processName)
         {
             var proc = Process.GetProcessesByName(processName);
@@ -14,7 +18,11 @@ namespace Syriaca.Client.Utils
             return proc.Any();
         }
 
-        public static Process GetGdProcess(bool openGd)
+        /// <summary>
+        /// Gets the Geometry Dash process.
+        /// </summary>
+        /// <param name="openGd">optionally opens Geometry Dash automatically.</param>
+        public static Process GetGdProcess(bool openGd = false)
         {
             Process proc;
 
