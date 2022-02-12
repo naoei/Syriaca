@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Spectre.Console;
 using Syriaca.Client;
 using Syriaca.Client.Memory;
 using Syriaca.Client.Plugins;
@@ -23,7 +25,7 @@ namespace Syriaca.Runner
 
                 return;
             }
-
+            
             reader = new GdReader(proc);
 
             processState = new GdProcessState(reader);
@@ -35,11 +37,21 @@ namespace Syriaca.Runner
             {
                 plugin.State = processState;
                 plugin.GdReader = reader;
+                
+                Logger.Log("Attempting to load: " + plugin.Name);
 
-                Logger.Log("Successfully loaded: " + plugin.Name);
+                try
+                {
+                    schedulers.Add(plugin.Scheduler = plugin.CreateScheduler());
+                    plugin.Scheduler.Name = plugin.Name;
+                    plugin.OnScheduleCreated();
 
-                schedulers.Add(plugin.Scheduler = plugin.CreateScheduler());
-                plugin.OnScheduleCreated();
+                    Logger.Log("Successfully loaded: " + plugin.Name);
+                }
+                catch (Exception e)
+                {
+                    Logger.Error(e);
+                }
             }
 
             RunSchedulers();
@@ -57,7 +69,15 @@ namespace Syriaca.Runner
                     if (s.Stopwatch.ElapsedMilliseconds < s.Delay)
                         continue;
 
-                    s.Pulse();
+                    try
+                    {
+                        s.Pulse();
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error("Error thrown for: " + s.Name);
+                        Logger.Error(e);
+                    }
                 }
         }
     }

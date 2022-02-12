@@ -1,7 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0-windows</TargetFramework>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Configurations>Debug;Release;</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Syriaca.Client\Syriaca.Client.csproj"/>
+        <ProjectReference Include="..\Syriaca.Client\Syriaca.Client.csproj" />
     </ItemGroup>
 
     <ItemGroup>

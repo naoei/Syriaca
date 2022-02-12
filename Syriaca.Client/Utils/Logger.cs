@@ -6,7 +6,7 @@ namespace Syriaca.Client.Utils
     /// <summary>
     /// A prettified logger specifically made for Syriaca, but can also be used for its plugins.
     /// </summary>
-    public class Logger
+    public static class Logger
     {
         /// <summary>
         /// The log level that should be bothered with.
@@ -50,7 +50,7 @@ namespace Syriaca.Client.Utils
             var name = DebugUtils.GetCallingClass(1);
 
             AnsiConsole.MarkupLine(
-                $"[{color}]•[/] [[{currentTime}]] [bold {color}][[{level}]][/] ｜ [[{name}]]: {message}");
+                $"[{color}]@[/] [[{currentTime}]] [bold {color}][[{level}]][/] ｜ [[{name}]]: {message}");
         }
 
         private static void logBackground(string message, LogLevel level = LogLevel.Log,
@@ -63,7 +63,7 @@ namespace Syriaca.Client.Utils
             var name = DebugUtils.GetCallingClass(1);
 
             AnsiConsole.MarkupLine(
-                $"[{color}]•[/] [[{currentTime}]] [{textColor} bold on {color}][[{level}]][/] ｜ [[{name}]]: {message}");
+                $"[{color}]@[/] [[{currentTime}]] [{textColor} bold on {color}][[{level}]][/] ｜ [[{name}]]: {message}");
         }
 
         /// <summary>

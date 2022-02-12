@@ -20,7 +20,7 @@ namespace Syriaca.Client
         /// <summary>
         /// The name of this scheduler.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         public readonly Stopwatch Stopwatch = new();
 
