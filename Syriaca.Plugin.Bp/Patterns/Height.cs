@@ -1,10 +1,15 @@
-﻿namespace Syriaca.Plugin.Bp.Patterns
+﻿using System;
+using Syriaca.Plugin.Bp.Utils;
+
+namespace Syriaca.Plugin.Bp.Patterns
 {
     public class Height : PatternHandler
     {
         public override PatternType Type => PatternType.Height;
 
-        private float multiplier;
+        private const int max_height = 2460;
+        private const int min_height = 105;
+        private readonly float multiplier;
 
         public Height(uint motor, bool isOpposite, float multiplier) 
             : base(motor, isOpposite)
@@ -14,7 +19,18 @@
 
         public override double GetValue(BpPlugin plugin)
         {
-            return 0;
+            plugin.LevelInfo.Update();
+            plugin.PlayerInfo.Update();
+            
+            if (plugin.LevelInfo.Id == -882)
+                return 0;
+            
+            var percentage = Interpolation.ValueAt(plugin.PlayerInfo.Y, 0, 1, min_height, max_height);
+
+            if (IsOpposite)
+                percentage = 1 - percentage;
+            
+            return percentage * multiplier;
         }
     }
 }

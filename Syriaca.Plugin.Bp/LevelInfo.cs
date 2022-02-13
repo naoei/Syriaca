@@ -33,6 +33,7 @@ namespace Syriaca.Plugin.Bp
     public class PlayerInfo
     {
         public float X { get; private set; }
+        public float Y { get; private set; }
         public int CurrentAttempt { get; private set; }
 
         private GdReader reader;
@@ -47,6 +48,7 @@ namespace Syriaca.Plugin.Bp
             try
             {
                 X = reader.Read<float>("Player X");
+                Y = reader.Read<float>(0x164, 0x224, 0x38);
                 CurrentAttempt = reader.Read<int>(0x164, 0x4A8);
             }
             catch
