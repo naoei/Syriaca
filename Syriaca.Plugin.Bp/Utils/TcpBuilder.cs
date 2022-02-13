@@ -1,4 +1,8 @@
-﻿using Syriaca.Plugin.Bp.Tcp;
+﻿using System;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
+using Syriaca.Plugin.Bp.Tcp;
 
 namespace Syriaca.Plugin.Bp.Utils
 {
@@ -12,6 +16,19 @@ namespace Syriaca.Plugin.Bp.Utils
             writer = new TcpWriter();
             writer.Write((byte) code);
 
+            return this;
+        }
+
+        public TcpBuilder Write(object obj)
+        {
+            using var ms = new MemoryStream();
+
+            using (var bsonWriter = new BsonDataWriter(ms))
+            {
+                new JsonSerializer().Serialize(bsonWriter, obj);
+            }
+            
+            writer.Write(ms.ToArray());
             return this;
         }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
+﻿using Syriaca.Plugin.Bp.Utils;
 
 namespace Syriaca.Plugin.Bp.Tcp.Handlers
 {
@@ -12,13 +8,9 @@ namespace Syriaca.Plugin.Bp.Tcp.Handlers
 
         public override void HandleData(byte[] data)
         {
-            using var ms = new MemoryStream(data);
+            var list = new TcpReader(data).ReadBson(true);
 
-            var bsonReader = new BsonDataReader(ms);
-            bsonReader.ReadRootValueAsArray = true;
-            var des = new JsonSerializer().Deserialize<IList<object>>(bsonReader);
-
-            BpPlugin.Devices = des;
+            BpPlugin.Devices = list;
         }
     }
 }

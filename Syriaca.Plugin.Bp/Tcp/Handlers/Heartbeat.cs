@@ -10,7 +10,6 @@ namespace Syriaca.Plugin.Bp.Tcp.Handlers
 
         public override void HandleData(byte[] data)
         {
-            Logger.Info("Heartbeat received.");
             new TcpBuilder().Start(OpCodes.Heartbeat).End();
         }
     }

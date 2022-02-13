@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Syriaca.Client;
+using Syriaca.Plugin.Bp.Tcp;
+using Syriaca.Plugin.Bp.Tcp.Requests;
+using Syriaca.Plugin.Bp.Utils;
 
 namespace Syriaca.Plugin.Bp
 {
@@ -10,7 +14,7 @@ namespace Syriaca.Plugin.Bp
 
         public override string Name => "Buttplug.io";
 
-        public override Scheduler CreateScheduler() => new(20);
+        public override Scheduler CreateScheduler() => new(5000);
 
         public override void OnScheduleCreated()
         {
@@ -22,7 +26,19 @@ namespace Syriaca.Plugin.Bp
         {
             if (Devices is { Count: > 0 })
             {
+                new TcpBuilder().Start(OpCodes.SendCommand).Write(new Command
+                {
+                    Index = 0,
+                    Motor = 0,
+                    Speed = new Random().NextDouble()
+                }).End();
                 
+                new TcpBuilder().Start(OpCodes.SendCommand).Write(new Command
+                {
+                    Index = 0,
+                    Motor = 1,
+                    Speed = new Random().NextDouble()
+                }).End();
             }
         }
     }
