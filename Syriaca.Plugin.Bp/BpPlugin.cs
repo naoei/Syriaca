@@ -48,7 +48,7 @@ namespace Syriaca.Plugin.Bp
                 var percentage = pattern.GetValue(this);
                 percentage = Math.Clamp(percentage, 0, 1);
 
-                Console.WriteLine($"T: {pattern.Type.ToString()} | P: {percentage}");
+                //Console.WriteLine($"T: {pattern.Type.ToString()} | P: {percentage}");
 
                 new TcpBuilder().Start(OpCodes.SendCommand).Write(new Command
                 {

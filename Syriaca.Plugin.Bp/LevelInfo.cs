@@ -4,7 +4,7 @@ namespace Syriaca.Plugin.Bp
 {
     public class LevelInfo
     {
-        public long Id { get; set; }
+        public long Id { get; private set; }
         public float Length { get; private set; }
 
         private GdReader reader;
@@ -33,6 +33,7 @@ namespace Syriaca.Plugin.Bp
     public class PlayerInfo
     {
         public float X { get; private set; }
+        public int CurrentAttempt { get; private set; }
 
         private GdReader reader;
 
@@ -46,6 +47,7 @@ namespace Syriaca.Plugin.Bp
             try
             {
                 X = reader.Read<float>("Player X");
+                CurrentAttempt = reader.Read<int>(0x164, 0x4A8);
             }
             catch
             {
