@@ -105,8 +105,8 @@ namespace Syriaca.Client.Utils
     public enum LogLevel
     {
         Debug,
-        Info,
         Log,
+        Info,
         Warning,
         Error
     }

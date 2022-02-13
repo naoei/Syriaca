@@ -14,7 +14,7 @@ namespace Syriaca.Plugin.Bp.Tcp
                .GetTypes().Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(TcpHandler)))
                .Select(t => (TcpHandler) Activator.CreateInstance(t));
             
-            Logger.Info($"{code} handled.");
+            Logger.Debug($"{code} handled.");
 
             return opEnum.First(o => o?.OpCode == code);
         }

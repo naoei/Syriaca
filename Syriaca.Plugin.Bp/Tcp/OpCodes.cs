@@ -4,7 +4,7 @@
     {
         // SERVER | Always starts with 0x0#
         Heartbeat = 0x00,
-        DeviceListing = 0x01,
+        Configuration = 0x01,
         
         // CLIENT | Always starts with 0x1#
         SendCommand = 0x10

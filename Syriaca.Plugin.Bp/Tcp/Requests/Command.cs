@@ -2,10 +2,8 @@
 {
     public class Command
     {
-        public int Index { get; set; }
-
-        public double Speed { get; set; }
-
+        public uint Index { get; set; }
         public uint Motor { get; set; }
+        public double Speed { get; set; }
     }
 }
