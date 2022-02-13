@@ -12,7 +12,7 @@
             this.threshold = threshold;
         }
 
-        public override double Execute(BpPlugin plugin)
+        public override double GetValue(BpPlugin plugin)
         {
             return 0;
         }

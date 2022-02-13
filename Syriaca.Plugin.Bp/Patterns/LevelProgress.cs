@@ -1,4 +1,6 @@
-﻿namespace Syriaca.Plugin.Bp.Patterns
+﻿using System;
+
+namespace Syriaca.Plugin.Bp.Patterns
 {
     public class LevelProgress : PatternHandler
     {
@@ -9,9 +11,20 @@
         {
         }
 
-        public override double Execute(BpPlugin plugin)
+        public override double GetValue(BpPlugin plugin)
         {
-            return 0;
+            plugin.LevelInfo.Update();
+            plugin.PlayerInfo.Update();
+            
+            if (plugin.LevelInfo.Id == -882)
+                return 0;
+
+            var percentage = plugin.PlayerInfo.X / plugin.LevelInfo.Length;
+
+            if (IsOpposite)
+                percentage = 1 - percentage;
+            
+            return percentage;
         }
     }
 }

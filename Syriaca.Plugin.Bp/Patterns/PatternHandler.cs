@@ -3,18 +3,16 @@
     public abstract class PatternHandler
     {
         public abstract PatternType Type { get; }
-
-        public uint Motor { get; set; }
-
-        private bool isOpposite;
+        public uint Motor { get; }
+        public bool IsOpposite { get; }
 
         protected PatternHandler(uint motor, bool isOpposite)
         {
             Motor = motor;
-            this.isOpposite = isOpposite;
+            IsOpposite = isOpposite;
         }
 
-        public abstract double Execute(BpPlugin plugin);
+        public abstract double GetValue(BpPlugin plugin);
     }
     
     public enum PatternType
